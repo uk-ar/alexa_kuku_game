@@ -104,7 +104,14 @@ var quizHandlers = Alexa.CreateStateHandler(states.QUIZ, {
   'AnswerIntent': function() {
 
     // スロットから回答を参照
-    var usersAnswer = this.event.request.intent.slots.Answer.value;
+      var usersAnswer = this.event.request.intent.slots.Number.value || this.event.request.intent.slots.LongNumber.value;
+      console.log("usersAnswer",
+                  this.event.request.intent.slots,
+                  this.event.request.intent.slots.Number,
+                  this.event.request.intent.slots.Number.value,
+                  this.event.request.intent.slots.LongNumber,
+                  this.event.request.intent.slots.LongNumber.value
+                  )
     if(!usersAnswer){
       this.emitWithState("Unhandled");
     }
