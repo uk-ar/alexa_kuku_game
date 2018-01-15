@@ -7,19 +7,21 @@ const states = {
   QUIZ: '_QUIZMODE',
   START: "_STARTMODE"
 };
-
+const q = require("./question");
+const questions = q["QUESTIONS_JA_JP"]
 // クイズ内容の定義
-const questions = [
-  { 'q' : 'いん いち が？',  'a' : '1' },
-  { 'q' : 'いん に が？',  'a' : '2' },
-  { 'q' : 'いん さん が？',  'a' : '3' },
-  { 'q' : 'いん し が？',  'a' : '4' },
-  { 'q' : 'いん ご が？',  'a' : '5' },
-  { 'q' : 'いん ろく が？',  'a' : '6' },
-  { 'q' : 'いん しち が？',  'a' : '7' },
-  { 'q' : 'いん はち が？',  'a' : '8' },
-  { 'q' : 'いん く が？',  'a' : '9' }
-];
+/* const questions = [
+ *   { 'q' : 'いん いち が？',  'a' : '1' },
+ *   { 'q' : 'いん に が？',  'a' : '2' },
+ *   { 'q' : 'いん さん が？',  'a' : '3' },
+ *   { 'q' : 'いん し が？',  'a' : '4' },
+ *   { 'q' : 'いん ご が？',  'a' : '5' },
+ *   { 'q' : 'いん ろく が？',  'a' : '6' },
+ *   { 'q' : 'いん しち が？',  'a' : '7' },
+ *   { 'q' : 'いん はち が？',  'a' : '8' },
+ *   { 'q' : 'いん く が？',  'a' : '9' }
+ * ];*/
+
 var languageString = {
     "ja-JP": {
         "translation": {
@@ -76,7 +78,7 @@ var startStateHandlers = Alexa.CreateStateHandler(states.START, {
     },
     "AMAZON.StartOverIntent": function() {
         this.handler.state = states.START;
-        this.emitWithState("Quiz");
+        this.emitWithState("StartGame",false);
     },
     "AMAZON.StopIntent": function() {
         this.response.speak(this.t("GAME_OVER_MESSAGE", this.attributes['correct']));
@@ -135,7 +137,7 @@ var quizHandlers = Alexa.CreateStateHandler(states.QUIZ, {
   },
     "AMAZON.StartOverIntent": function() {
         this.handler.state = states.START;
-        this.emitWithState("Quiz");
+        this.emitWithState("StartGame",false);
     },
     "AMAZON.StopIntent": function() {
         this.response.speak(this.t("GAME_OVER_MESSAGE", this.attributes['correct']));
