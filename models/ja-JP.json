@@ -1,0 +1,96 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "くくドリル",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.PauseIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.RepeatIntent",
+          "samples": [
+            "もう一回教えて",
+            "もう一度教えて",
+            "もう一度",
+            "もう一回"
+          ]
+        },
+        {
+          "name": "AMAZON.StartOverIntent",
+          "samples": [
+            "クイズ をはじめて",
+            "クイズ をスタート",
+            "クイズ スタート",
+            "クイズ して",
+            "クイズ ちょうだい",
+            "クイズ",
+            "ゲーム をはじめて",
+            "ゲーム をスタート",
+            "ゲーム スタート",
+            "ゲーム して",
+            "ゲーム ちょうだい",
+            "ゲーム",
+            "くく をはじめて",
+            "くく をスタート",
+            "くく スタート",
+            "くく して",
+            "くく ちょうだい",
+            "くく",
+            "スタート",
+            "くく ドリル して",
+            "くく ドリル ちょうだい",
+            "くく ドリル スタート",
+            "くく ドリル をスタート"
+          ]
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AnswerIntent",
+          "slots": [
+            {
+              "name": "Answer",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": [
+            "{Answer}",
+            "{Answer} です",
+            "{Answer} だよ",
+            "{Answer} だ",
+            "正解は {Answer} です",
+            "正解は {Answer} だよ",
+            "正解は {Answer} だ",
+            "正解は {Answer}",
+            "答えは {Answer} です",
+            "答えは {Answer} だよ",
+            "答えは {Answer} だ",
+            "答えは {Answer}",
+            "{Answer} かな",
+            "{Answer} だと思う"
+          ]
+        },
+        {
+          "name": "DontKnowIntent",
+          "samples": [
+            "パス",
+            "スキップ",
+            "わかりません",
+            "知りません"
+          ]
+        }
+      ]
+    }
+  }
+}
