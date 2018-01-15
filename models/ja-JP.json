@@ -54,7 +54,12 @@
         },
         {
           "name": "AMAZON.StopIntent",
-          "samples": []
+            "samples": [
+                "おしまい",
+                "終わり",
+                "おしまいです",
+                "終わりです"
+          ]
         },
         {
           "name": "AnswerIntent",
@@ -69,16 +74,20 @@
             "{Answer} です",
             "{Answer} だよ",
             "{Answer} だ",
+            "{Answer} かな",
+            "{Answer} だと思う",
             "正解は {Answer} です",
             "正解は {Answer} だよ",
             "正解は {Answer} だ",
+            "正解は {Answer} かな",
+            "正解は {Answer} だと思う",
             "正解は {Answer}",
             "答えは {Answer} です",
             "答えは {Answer} だよ",
             "答えは {Answer} だ",
-            "答えは {Answer}",
-            "{Answer} かな",
-            "{Answer} だと思う"
+            "答えは {Answer} かな",
+            "答えは {Answer} だと思う",
+            "答えは {Answer}"
           ]
         },
         {
@@ -87,6 +96,12 @@
             "パス",
             "スキップ",
             "わかりません",
+            "わからない",
+            "ならってない",
+            "ならってません",
+            "覚えてない",
+            "覚えてません",
+            "知らない",
             "知りません"
           ]
         }

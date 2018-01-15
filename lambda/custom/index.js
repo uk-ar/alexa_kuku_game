@@ -45,11 +45,11 @@ exports.handler = function(event, context, callback) {
 var handlers = {
   'LaunchRequest': function () {
     this.handler.state = states.START;
-    this.emitWithState("StartGame");
+    this.emitWithState("StartGame",true);
   },
   "AMAZON.StartOverIntent": function() {
       this.handler.state = states.START;
-      this.emitWithState("StartGame");
+      this.emitWithState("StartGame",true);
   },
   'AMAZON.HelpIntent': function () {
     this.emit(':ask', this.t("HELP_MESSAGE") + this.t("START_MESSAGE"));
@@ -67,12 +67,15 @@ var startStateHandlers = Alexa.CreateStateHandler(states.START, {
       this.handler.state = states.QUIZ; // クイズ回答ステートをセット
       this.attributes['advance'] = 1;   // 進行状況をセッションアトリビュートにセット
       this.attributes['correct'] = 0;   // 正解数を初期化
-      var message = this.t("WELCOME_MESSAGE") + this.t("HELP_MESSAGE") + this.t("TELL_QUESTION_MESSAGE", "1") + questions[0].q;
-      var reprompt = this.t("TELL_QUESTION_MESSAGE") + questions[0].q;
+      this.attributes['currentQuestionIndex'] = Math.floor(Math.random() * questions.length)
+      var message = this.t("WELCOME_MESSAGE") + this.t("HELP_MESSAGE") + this.t("TELL_QUESTION_MESSAGE", "1") + questions[this.attributes['currentQuestionIndex']].q;
+      var reprompt = this.t("TELL_QUESTION_MESSAGE") + questions[this.attributes['currentQuestionIndex']].q;
       this.emit(':ask', message, reprompt); // 相手の回答を待つ
       console.log(message);
+      console.log("arisawa");
     },
     "AMAZON.StartOverIntent": function() {
+        this.handler.state = states.START;
         this.emitWithState("Quiz");
     },
     "AMAZON.StopIntent": function() {
@@ -105,7 +108,8 @@ var quizHandlers = Alexa.CreateStateHandler(states.QUIZ, {
     }
 
     var resultMessage;
-    if(questions[this.attributes['advance']-1].a == usersAnswer){
+    //if(questions[this.attributes['advance']-1].a == usersAnswer){
+    if(questions[this.attributes['currentQuestionIndex']].a == usersAnswer){
         resultMessage = this.t("ANSWER_CORRECT_MESSAGE")     //正解
         this.attributes['correct'] ++;
     }else{
@@ -114,7 +118,9 @@ var quizHandlers = Alexa.CreateStateHandler(states.QUIZ, {
 
     if(this.attributes['advance'] < questions.length){
         // まだ問題が残っている場合
-        var nextMessage = this.t("TELL_QUESTION_MESSAGE", this.attributes['advance']+1) + questions[this.attributes['advance']].q;
+      this.attributes['currentQuestionIndex']=Math.floor(Math.random() * questions.length)
+        var nextMessage = this.t("TELL_QUESTION_MESSAGE", this.attributes['advance']+1) +
+                          questions[this.attributes['currentQuestionIndex']].q;
         this.attributes['advance'] ++;
         this.emit(':ask', resultMessage+nextMessage, nextMessage);
     }else{
@@ -127,7 +133,8 @@ var quizHandlers = Alexa.CreateStateHandler(states.QUIZ, {
         this.emit(':tell', resultMessage + endMessage, endMessage);
     }
   },
-      "AMAZON.StartOverIntent": function() {
+    "AMAZON.StartOverIntent": function() {
+        this.handler.state = states.START;
         this.emitWithState("Quiz");
     },
     "AMAZON.StopIntent": function() {
