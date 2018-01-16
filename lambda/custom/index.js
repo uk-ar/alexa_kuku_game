@@ -5,22 +5,20 @@ const Alexa = require('alexa-sdk');
 // ステートの定義
 const states = {
   QUIZ: '_QUIZMODE',
-  START: "_STARTMODE"
+  START: "_STARTMODE", // Entry point, start the game.
+  HELP: "_HELPMODE" // The user is asking for help.
 };
+
 const q = require("./question");
 const questions = q["QUESTIONS_JA_JP"]
-// クイズ内容の定義
-/* const questions = [
- *   { 'q' : 'いん いち が？',  'a' : '1' },
- *   { 'q' : 'いん に が？',  'a' : '2' },
- *   { 'q' : 'いん さん が？',  'a' : '3' },
- *   { 'q' : 'いん し が？',  'a' : '4' },
- *   { 'q' : 'いん ご が？',  'a' : '5' },
- *   { 'q' : 'いん ろく が？',  'a' : '6' },
- *   { 'q' : 'いん しち が？',  'a' : '7' },
- *   { 'q' : 'いん はち が？',  'a' : '8' },
- *   { 'q' : 'いん く が？',  'a' : '9' }
- * ];*/
+
+//This is a list of positive speechcons that this skill will use when a user gets a correct answer.  For a full list of supported
+//speechcons, go here: https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speechcon-reference
+const speechConsCorrect = ["イェイ","うふ","うふふ","うん","おおー","おめでとう","そうそう","万歳","ピンポーン","ふふっ","ふふふ","ほ〜","やった","やったあ","やっほう","やっほう","わ〜い"];
+
+//This is a list of negative speechcons that this skill will use when a user gets an incorrect answer.  For a full list of supported
+//speechcons, go here: https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speechcon-reference
+const speechConsWrong = ["あ〜あ","あちゃ","あちゃあ","あらら","ありゃ","あれれ","うぇーん","おっと","およよ","しくしく","とほほ","むっ"];
 
 var languageString = {
     "ja-JP": {
@@ -61,7 +59,17 @@ var handlers = {
     this.emit(":ask", speechOutput, speechOutput);
   }
 };
+function getRandom(min, max)
+{
+    return Math.floor(Math.random() * (max-min+1)+min);
+}
 
+function getSpeechCon(type)
+{
+
+    if (type) return "<say-as interpret-as='interjection'>" + speechConsCorrect[getRandom(0, speechConsCorrect.length-1)] + "! </say-as><break strength='strong'/>";
+    else return "<say-as interpret-as='interjection'>" + speechConsWrong[getRandom(0, speechConsWrong.length-1)] + " </say-as><break strength='strong'/>";
+}
 
 // ゲーム開始ステート
 var startStateHandlers = Alexa.CreateStateHandler(states.START, {
@@ -115,10 +123,12 @@ var quizHandlers = Alexa.CreateStateHandler(states.QUIZ, {
     var resultMessage;
     //if(questions[this.attributes['advance']-1].a == usersAnswer){
     if(questions[this.attributes['currentQuestionIndex']].a == usersAnswer){
-        resultMessage = this.t("ANSWER_CORRECT_MESSAGE")     //正解
-        this.attributes['correct'] ++;
+      resultMessage = getSpeechCon(true);
+      resultMessage += this.t("ANSWER_CORRECT_MESSAGE")     //正解
+      this.attributes['correct'] ++;
     }else{
-        resultMessage = this.t("ANSWER_WRONG_MESSAGE")     //不正解
+      resultMessage = getSpeechCon(false);
+      resultMessage += this.t("ANSWER_WRONG_MESSAGE")     //不正解
     }
 
     if(this.attributes['advance'] < questions.length){
