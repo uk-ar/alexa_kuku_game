@@ -25,7 +25,7 @@ const questions = q["QUESTIONS_JA_JP"]
 var languageString = {
     "ja-JP": {
         "translation": {
-            "WELCOME_MESSAGE": "くくクイズへようこそ。 ",
+            "WELCOME_MESSAGE": "くくゲームへようこそ。 ",
             "HELP_MESSAGE": "正解だと思う数字を回答してください。",
             "START_MESSAGE": "ゲームを始める場合は「ゲームスタート」と言ってください。 ",
             "ANSWER_CORRECT_MESSAGE": "正解。 ",
@@ -103,15 +103,11 @@ var startStateHandlers = Alexa.CreateStateHandler(states.START, {
 var quizHandlers = Alexa.CreateStateHandler(states.QUIZ, {
   'AnswerIntent': function() {
 
-    // スロットから回答を参照
-      var usersAnswer = this.event.request.intent.slots.Number.value || this.event.request.intent.slots.LongNumber.value;
-      console.log("usersAnswer",
-                  this.event.request.intent.slots,
-                  this.event.request.intent.slots.Number,
-                  this.event.request.intent.slots.Number.value,
-                  this.event.request.intent.slots.LongNumber,
-                  this.event.request.intent.slots.LongNumber.value
-                  )
+      // スロットから回答を参照
+      //var usersAnswer = this.event.request.intent.slots.Number.value || this.event.request.intent.slots.LongNumber.resolutions.resolutionsPerAuthority.values.value.id;
+      var usersAnswer = this.event.request.intent.slots.Number.value || (this.event.request.intent.slots.LongNumber.resolutions && this.event.request.intent.slots.LongNumber.resolutions.resolutionsPerAuthority[0].values[0].value.id)
+      console.log("usersAnswer0",
+                  this.event.request.intent.slots.LongNumber)
     if(!usersAnswer){
       this.emitWithState("Unhandled");
     }
