@@ -106,7 +106,7 @@
         ]
       }
     ],
-      "invocationName": "くくドリル",
+      "invocationName": "くくゲーム",
       "intents": [
         {
           "name": "AMAZON.CancelIntent",
