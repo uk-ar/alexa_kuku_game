@@ -3,11 +3,11 @@
     "publishingInformation": {
       "locales": {
         "ja-JP": {
-          "summary": "九九をクイズします",
+          "summary": "アレクサと一緒に九九を覚えよう！",
           "examplePhrases": [
-            "アレクサ、九九クイズを開いて",
-            "クイズスタート",
-            "81"
+            "アレクサ、九九ゲームを開いて",
+            "おしまい",
+            "答えは81"
           ],
           "keywords": [
             "九九",
@@ -19,14 +19,14 @@
             "小学校",
             "小学生"
           ],
-          "name": "九九ドリル",
+          "name": "九九ゲーム",
           "smallIconUri": "https://api.amazonalexa.com/v0/skills/amzn1.ask.skill.6d138e4e-ff76-4bfd-94c2-5562087c5535/images/eyJkIjoianpzc0s3R2hVZk9ZSEJ0b1d4MGN3eEVEYS82RjFvYVg5ZS92WnZzMkFuUnJFRkZ0bTBYL0FZUmRRYTUvTFFIU2xUakdyUjJFVkRZTVBkSjVydzQ4OVRmRlg0aUJzTGdyNnFUbTV3YmFyUzluamljUE1KaDNqTjZ6bVhZMUlnVTUiLCJpdiI6InR2OUNLZTd4MXAyMUNPbUcxV1BwQlE9PSIsInYiOjF9",
-          "description": "九九をクイズします",
+          "description": "ゲーム感覚で九九を覚えることができます。\n\n■ ゲームの開始方法\n「アレクサ、九九ゲームを開いて」\nゲームが開始します\n\n■ ゲームの終了方法\n「おしまい」\nゲームが終了します\n\n■ 問題への答え方\n「答えは81だよ」\n「81」\nなどのように答えます",
           "largeIconUri": "https://api.amazonalexa.com/v0/skills/amzn1.ask.skill.6d138e4e-ff76-4bfd-94c2-5562087c5535/images/eyJkIjoiRW9KR2lnZkhSU2xpUjdEQ05kcSt3eFRUczBrRGRwdEE2UHRzR3lleCtjNmVhaGlRRC9zWnUyU205S3lONDg0RVF6dXVRTUZFQWdPQVVHZllCK3FuOXdPcDluSSs1QWpZRWc2cnozQXkzV3ZvbVozUkZKbktmWTNBakxUa3JsZkZSdVVmdkZSU1BlMFV2TUJMVjlQcVNnPT0iLCJpdiI6Ikc5ZjNkenA4MHJlVmhpTDdDMjBtc1E9PSIsInYiOjF9"
         }
       },
       "isAvailableWorldwide": false,
-      "testingInstructions": "九九クイズを開いて",
+      "testingInstructions": "このスキルはトリビアスキルテンプレートを利用して作成しました。1. ゲームの開始\n「くくゲームを開いて」でゲームが開始します\n2. ゲーム\n「答えは81」などのように答えを回答します\n3. ゲームの終了\n「おしまい」でゲームが終了します",
       "category": "EDUCATION_AND_REFERENCE",
       "distributionCountries": [
         "JP"
@@ -35,7 +35,7 @@
     "apis": {
       "custom": {
         "endpoint": {
-          "sourceDir": "lambda/custom"
+          "uri": "arn:aws:lambda:ap-northeast-1:663791109982:function:QuizGame"
         }
       }
     },
@@ -50,7 +50,7 @@
       },
       "isExportCompliant": true,
       "containsAds": false,
-      "isChildDirected": false,
+      "isChildDirected": true,
       "usesPersonalInfo": false
     }
   }
